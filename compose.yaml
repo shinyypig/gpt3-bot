@@ -1,0 +1,13 @@
+version: "3"
+services:
+  gpt3-bot:
+    image: shinyypig/gpt3-tgbot:latest
+    container_name: gpt3-bot
+    environment:
+        - OPENAI_KEY=Your OpenAI API Key
+        - OPENAI_MODEL=text-davinci-003 # The model to use.
+        - TELEGRAM_KEY=Your Telegram Bot Token
+        - TELEGRAM_USER_ID=[Your Telegram User ID].
+        - PROMPT_LIMIT=5 # The number of sessions to send to OpenAI.
+        - PYTHONUNBUFFERED=1 # See python print in docker logs.
+    restart: unless-stopped
