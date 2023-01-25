@@ -111,14 +111,16 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_chat.id in user_id:
         try:
             response = chatbot.askOpenai(update.message.text)
-        except:
+        except Exception as e:
             response = 'GPT3 no response.'
+            print(e)
         chatbot.print_prompt()
         if response:
             try:
                 await context.bot.send_message(chat_id=update.effective_chat.id, text=response, parse_mode='HTML')
             except Exception as e:
-                await context.bot.send_message(chat_id=update.effective_chat.id, text=response+'\n\n Can not parse this HTML.\n' + e)
+                await context.bot.send_message(chat_id=update.effective_chat.id, text=response+'\n\n Can not parse this HTML.\n')
+                print(e)
         else:
             await context.bot.send_message(chat_id=update.effective_chat.id, text='GPT3 can not answer this question.')
 
